@@ -5,19 +5,16 @@ session_start();
 $errors = [];
 $form_data = [];
 
-// 3. Logika saat form disubmit
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Ambil dan bersihkan data dari form
+
     $username = trim($_POST['username'] ?? '');
     $email = trim($_POST['email'] ?? '');
     $password = $_POST['password'] ?? '';
     $confirm_password = $_POST['confirm_password'] ?? '';
 
-    // Simpan data untuk ditampilkan kembali jika ada error
     $form_data['username'] = $username;
     $form_data['email'] = $email;
 
-    // 4. Validasi Sederhana
     if (empty($username)) {
         $errors[] = "Username tidak boleh kosong.";
     }
@@ -31,19 +28,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $errors[] = "Konfirmasi password tidak cocok.";
     }
 
-    // 5. Jika tidak ada error, proses pendaftaran
     if (empty($errors)) {
-        // Karena tidak ada database, kita hanya simulasi
-        // Simpan pesan sukses di session
+
         $_SESSION['registration_success'] = "Akun untuk <strong>" . htmlspecialchars($username) . "</strong> berhasil didaftarkan!";
         
-        // Redirect ke halaman yang sama untuk menampilkan pesan sukses
         header("Location: " . $_SERVER['PHP_SELF']);
         exit;
     }
 }
 
-// === AKHIR LOGIKA PHP ===
 ?>
 <!DOCTYPE html>
 <html lang="id">
